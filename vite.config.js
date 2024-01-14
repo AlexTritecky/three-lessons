@@ -1,6 +1,6 @@
 export default {
-    root: 'src/',
-    publicDir: '../static/',
+    root: 'src/lesson-02/',
+    publicDir: './src/images/',
     base: './',
     server:
     {
