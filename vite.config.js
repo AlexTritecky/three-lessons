@@ -1,5 +1,5 @@
 export default {
-    root: 'src/lesson-03/',
+    root: 'src/lesson-04/',
     publicDir: './src/images/',
     base: './',
     server:
