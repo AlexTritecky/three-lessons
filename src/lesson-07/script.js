@@ -1,5 +1,20 @@
 import * as THREE from "three";
+import GUI from "lil-gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import gsap from "gsap";
+
+// Debug
+
+const gui = new GUI();
+
+const debugObject = {
+  color: 0xff0000,
+  wireframe: true,
+  spin: () => {
+    gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
+  },
+  subdivision: 30,
+};
 
 // Cursor
 
@@ -22,6 +37,7 @@ const sizes = {
   height: window.innerHeight,
 };
 
+// Resize
 window.addEventListener("resize", () => {
   // Update sizes
   sizes.width = window.innerWidth;
@@ -38,7 +54,6 @@ window.addEventListener("resize", () => {
 });
 
 // Fullscreen
-
 window.addEventListener("dblclick", () => {
   const fullscreenElement =
     document.fullscreenElement || document.webkitFullscreenElement;
@@ -61,43 +76,45 @@ window.addEventListener("dblclick", () => {
 // Scene
 const scene = new THREE.Scene();
 
-// Geometry
+const geometry = new THREE.BoxGeometry(1, 1, 1, debugObject.subdivision, debugObject.subdivision, debugObject.subdivision);
 
-const geometry = new THREE.BufferGeometry();
-const count = 50;
-const positionsArray = new Float32Array(count * 3 * 3);
+gui.add(debugObject, "subdivision").min(1).max(10).step(1).onFinishChange(() => {
 
-for (let i = 0; i < count * 3 * 3; i++) {
-  positionsArray[i] = (Math.random() - 0.5) * 4;
+  mesh.geometry = new THREE.BoxGeometry(1, 1, 1, debugObject.subdivision, debugObject.subdivision, debugObject.subdivision);
 }
+)
 
-const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
+debugObject.color = "#0affe2";
 
-geometry.setAttribute("position", positionsAttribute);
+const material = new THREE.MeshBasicMaterial({ color: debugObject.color, wireframe: debugObject.wireframe});
+gui.add(material, "wireframe");
 
-const material = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-  wireframe: true,
+gui.addColor(debugObject, "color").onChange((value) => {
+  material.color.set(debugObject.color);
 });
 
-// Mesh
-
 const mesh = new THREE.Mesh(geometry, material);
-
 scene.add(mesh);
 
+const cubeTweaks = gui.addFolder("Cube Tweaks");
+
+cubeTweaks.add(mesh.position, "x").min(-3).max(3).step(0.01).name("x");
+cubeTweaks.add(mesh.position, "y").min(-3).max(3).step(0.01).name("y");
+
+// Sizes
 const aspectRatio = sizes.width / sizes.height;
+
 // Camera
 const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 100);
-
 camera.position.z = 3;
 camera.lookAt(mesh.position);
 scene.add(camera);
 
 // Controls
-
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+
+gui.add(controls, "autoRotate");
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
@@ -106,8 +123,8 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 // Animate
-
 const clock = new THREE.Clock();
+
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
@@ -118,5 +135,8 @@ const tick = () => {
 
   window.requestAnimationFrame(tick);
 };
+
+gui.add(debugObject, "spin");
+
 
 tick();
