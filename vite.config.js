@@ -1,6 +1,6 @@
 export default {
-    root: 'src/lesson-07/',
-    publicDir: './src/images/',
+    root: 'src/lesson-08/',
+    publicDir: './src/lesson-08/static/textures',
     base: './',
     server:
     {
