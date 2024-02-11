@@ -2,6 +2,7 @@ export default {
     root: 'src/lesson-09/',
     publicDir: './src/lesson-09/static/textures',
     base: './',
+
     server:
     {
         host: true, // Open to local network and display URL
@@ -9,7 +10,7 @@ export default {
     },
     build:
     {
-        outDir: '../dist', // Output in the dist/ folder
+        outDir: './dist', // Output in the dist/ folder
         emptyOutDir: true, // Empty the folder first
         sourcemap: true // Add sourcemap
     },
