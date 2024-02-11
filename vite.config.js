@@ -8,7 +8,7 @@ export default {
         open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open if it's not a CodeSandbox
     },
     build: {
-        outDir: '../dist', // Adjusted to output in the dist folder inside src
+        outDir: '../../dist', // Adjusted to output in the dist folder inside src
         emptyOutDir: true, // Empty the folder first
         sourcemap: true // Add sourcemap
     },
