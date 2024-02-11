@@ -1,16 +1,14 @@
 export default {
     root: 'src/lesson-09/',
-    publicDir: './src/lesson-09/static/textures',
+    publicDir: 'static/textures', // Adjusted to be relative to the root
     base: './',
 
-    server:
-    {
+    server: {
         host: true, // Open to local network and display URL
         open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open if it's not a CodeSandbox
     },
-    build:
-    {
-        outDir: './dist', // Output in the dist/ folder
+    build: {
+        outDir: '../dist', // Adjusted to output in the dist folder inside src
         emptyOutDir: true, // Empty the folder first
         sourcemap: true // Add sourcemap
     },
