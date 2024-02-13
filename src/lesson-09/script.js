@@ -206,9 +206,9 @@ scene.add(torusMesh);
 
 const rgbeLoader = new RGBELoader();
 rgbeLoader.load("./static/textures/environmentMap/2k.hdr", (envMap) => {
-    envMap.mapping = THREE.EquirectangularReflectionMapping;
-    scene.environment = envMap;
-    scene.background = envMap;
+  envMap.mapping = THREE.EquirectangularReflectionMapping;
+  scene.environment = envMap;
+  scene.background = envMap;
 });
 
 /**
