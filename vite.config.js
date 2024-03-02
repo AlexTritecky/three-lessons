@@ -1,5 +1,5 @@
 export default {
-  root: "classic_techniques/lesson-17/",
+  root: "classic_techniques/lesson-19/",
   publicDir: "static/", // Adjusted to be relative to the root
   base: "./",
 
