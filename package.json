@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cannon": "^0.6.2",
     "gsap": "^3.12.5",
     "lil-gui": "^0.19.1",
     "three": "^0.160.0"
